@@ -1,0 +1,92 @@
+/* admin.css */
+.admin-header {
+    background-color: var(--dark-bg);
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-header h1 {
+    font-size: 1.8em;
+}
+
+.admin-header nav ul {
+    display: flex;
+    gap: 20px;
+}
+
+.admin-header a {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.admin-container {
+    padding-top: 40px;
+}
+
+.admin-container h2 {
+    text-align: left;
+    margin-top: 30px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.admin-form {
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.admin-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.admin-form input, .admin-form textarea, .admin-form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Tablas de Administración */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.admin-table th, .admin-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-table th {
+    background-color: var(--dark-bg);
+    color: white;
+    font-weight: 700;
+}
+
+.admin-table button {
+    padding: 6px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+.delete-order-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.order-status-select {
+    padding: 5px;
+    border-radius: 4px;
+}

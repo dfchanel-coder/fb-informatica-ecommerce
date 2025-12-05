@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPU's Nuevas - FB Informática</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="product-list.css"> 
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-area">
+                <span class="logo-text">💻 FB Informática</span>
+                <h1 class="site-name">Tienda Online</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="#">Usados ▼</a>
+                        <ul class="dropdown-content">
+                            <li><a href="usados-gpus.html">GPU's Usadas</a></li>
+                            <li><a href="usados-pcs.html">PC's Usadas</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Nuevos ▼</a>
+                        <ul class="dropdown-content">
+                            <li><a href="nuevos-gpus.html">GPU's Nuevas</a></li>
+                            <li><a href="nuevos-pcs.html">PC's Nuevas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="utility-icons">
+                <input type="search" placeholder="Buscar productos..." class="search-input">
+                <button class="cart-btn" aria-label="Carrito de Compras">
+                    🛒 Carrito (0)
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container product-page-layout">
+        <h2 class="page-title">GPU's Nuevas ✨</h2>
+
+        <div class="content-wrapper">
+            
+            <aside class="sidebar">
+                <h3>Filtros</h3>
+                <div class="filter-group">
+                    <h4>Buscador Rápido</h4>
+                    <input type="text" id="quick-search-new-gpu" placeholder="Buscar por modelo de GPU..." class="search-filter-input">
+                </div>
+                <div class="filter-group">
+                    <h4>Filtrar por Precio</h4>
+                    <div class="price-inputs">
+                        <input type="number" id="min-price-new-gpu" placeholder="Mínimo" min="0">
+                        <input type="number" id="max-price-new-gpu" placeholder="Máximo" min="0">
+                    </div>
+                    <button class="apply-filters-btn">Aplicar Filtros</button>
+                </div>
+            </aside>
+
+            <section class="product-list">
+                
+                <div class="product-card">
+                    <img src="placeholder-new-gpu.jpg" alt="RTX 4070 Nueva" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">NVIDIA RTX 4070 Ti SUPER (16GB)</h3>
+                        <p class="product-description">Máximo rendimiento en 4K, con garantía oficial.</p>
+                        <p class="product-category">Nuevo</p>
+                        <div class="price-container">
+                            <span class="product-price">$ 850.000</span>
+                        </div>
+                        <button class="add-to-cart-btn">Agregar al Carrito</button>
+                    </div>
+                </div>
+                
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 FB Informática. Todos los derechos reservados.</p>
+            <p>Desarrollado por FB Informática</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script> 
+</body>
+</html>

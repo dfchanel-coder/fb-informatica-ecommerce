@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPU's Usadas - FB Informática</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="product-list.css"> </head>
+<body>
+
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-area">
+                <span class="logo-text">💻 FB Informática</span>
+                <h1 class="site-name">Tienda Online</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="#">Usados ▼</a>
+                        <ul class="dropdown-content">
+                            <li><a href="usados-gpus.html">GPU's Usadas</a></li>
+                            <li><a href="usados-pcs.html">PC's Usadas</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Nuevos ▼</a>
+                        <ul class="dropdown-content">
+                            <li><a href="nuevos-gpus.html">GPU's Nuevas</a></li>
+                            <li><a href="nuevos-pcs.html">PC's Nuevas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="utility-icons">
+                <input type="search" placeholder="Buscar productos..." class="search-input">
+                <button class="cart-btn" aria-label="Carrito de Compras">
+                    🛒 Carrito (0)
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container product-page-layout">
+        <h2 class="page-title">GPU's Usadas 💾</h2>
+
+        <div class="content-wrapper">
+            
+            <aside class="sidebar">
+                <h3>Filtros</h3>
+
+                <div class="filter-group">
+                    <h4>Buscador Rápido</h4>
+                    <input type="text" id="quick-search" placeholder="Buscar por modelo..." class="search-filter-input">
+                </div>
+
+                <div class="filter-group">
+                    <h4>Filtrar por Precio</h4>
+                    <div class="price-inputs">
+                        <input type="number" id="min-price" placeholder="Mínimo" min="0">
+                        <input type="number" id="max-price" placeholder="Máximo" min="0">
+                    </div>
+                    <button class="apply-filters-btn">Aplicar Filtros</button>
+                </div>
+                
+                <div class="filter-group">
+                    <h4>Otros Filtros</h4>
+                    <p>Aquí se añadirán filtros por Marca, Capacidad de VRAM, etc.</p>
+                </div>
+
+            </aside>
+
+            <section class="product-list">
+                
+                <div class="product-card">
+                    <img src="placeholder-gpu.jpg" alt="RTX 3070 Usada" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">NVIDIA RTX 3070 (8GB)</h3>
+                        <p class="product-description">Excelente estado, 6 meses de uso, ideal para 1440p.</p>
+                        <p class="product-category">Usado</p>
+                        <div class="price-container">
+                            <span class="product-price">$ 450.000</span>
+                        </div>
+                        <button class="add-to-cart-btn">Agregar al Carrito</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="placeholder-gpu.jpg" alt="RX 580 Usada" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">AMD Radeon RX 580 (8GB)</h3>
+                        <p class="product-description">Tarjeta económica, perfecta para eSports.</p>
+                        <p class="product-category">Usado</p>
+                        <div class="price-container">
+                            <span class="product-price">$ 95.000</span>
+                        </div>
+                        <button class="add-to-cart-btn">Agregar al Carrito</button>
+                    </div>
+                </div>
+
+                </section>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 FB Informática. Todos los derechos reservados.</p>
+            <p>Desarrollado por FB Informática</p>
+        </div>
+    </footer>
+</footer>
+
+    <script src="script.js"></script> 
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - FB Informática</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="cart-page.css"> </head>
+<body>
+
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-area">
+                <span class="logo-text">💻 FB Informática</span>
+                <h1 class="site-name">Tienda Online</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="#">Usados ▼</a>
+                        <ul class="dropdown-content">
+                            <li><a href="usados-gpus.html">GPU's Usadas</a></li>
+                            <li><a href="usados-pcs.html">PC's Usadas</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Nuevos ▼</a>
+                        <ul class="dropdown-content">
+                            <li><a href="nuevos-gpus.html">GPU's Nuevas</a></li>
+                            <li><a href="nuevos-pcs.html">PC's Nuevas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="utility-icons">
+                <input type="search" placeholder="Buscar productos..." class="search-input">
+                <button class="cart-btn" aria-label="Carrito de Compras">
+                    🛒 Carrito (0)
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <h2 class="page-title">🛒 Tu Carrito de Compras</h2>
+        
+        <div class="cart-layout">
+            
+            <section class="cart-items" id="cart-items-container">
+                <p class="empty-cart-message">Tu carrito está vacío.</p>
+            </section>
+
+            <aside class="cart-summary">
+                <h3>Resumen del Pedido</h3>
+                
+                <div class="summary-details">
+                    <p>Subtotal: <span id="cart-subtotal">$ 0</span></p>
+                    <p>Costo de Envío: <span id="shipping-cost">A calcular</span></p>
+                </div>
+                
+                <div class="cart-total-line">
+                    <strong>TOTAL A PAGAR:</strong>
+                    <strong id="cart-total">$ 0</strong>
+                </div>
+
+                <a href="checkout.html" class="checkout-btn" id="checkout-link">
+                    Finalizar Compra
+                </a>
+                <button class="continue-shopping-btn" onclick="window.location.href='index.html'">
+                    Seguir Comprando
+                </button>
+            </aside>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 FB Informática. Todos los derechos reservados.</p>
+            <p>Desarrollado por FB Informática</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script> 
+</body>
+</html>

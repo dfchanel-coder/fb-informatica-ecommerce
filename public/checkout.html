@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra - FB Informática</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="checkout-page.css"> </head>
+<body>
+
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-area">
+                <span class="logo-text">💻 FB Informática</span>
+                <h1 class="site-name">Finalizar Compra</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="carrito.html">Volver al Carrito</a></li>
+                </ul>
+            </nav>
+            <div class="utility-icons">
+                <button class="cart-btn" onclick="window.location.href='carrito.html'">
+                    🛒 Carrito
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container checkout-layout">
+        <h2 class="page-title">1. Datos y Forma de Pago</h2>
+
+        <div class="checkout-wrapper">
+            
+            <section class="checkout-form">
+                <h3>Datos de Contacto y Envío</h3>
+                <form id="shipping-form">
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo (*)</label>
+                        <input type="text" id="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico (*)</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono / WhatsApp (*)</label>
+                        <input type="tel" id="telefono" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="direccion">Dirección de Envío (*)</label>
+                        <input type="text" id="direccion" placeholder="Calle, número, apto" required>
+                    </div>
+                    <div class="form-group half-width">
+                        <label for="ciudad">Ciudad (*)</label>
+                        <input type="text" id="ciudad" required>
+                    </div>
+                    <div class="form-group half-width">
+                        <label for="codigo-postal">Código Postal</label>
+                        <input type="text" id="codigo-postal">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notas">Notas del Pedido (Opcional)</label>
+                        <textarea id="notas" rows="3"></textarea>
+                    </div>
+                </form>
+
+                <div class="payment-options">
+                    <h3>2. Elegir Forma de Pago</h3>
+                    
+                    <div class="payment-method mp-method">
+                        <input type="radio" id="mp-payment" name="payment-method" value="mercadopago" checked>
+                        <label for="mp-payment">💳 Pagar con Mercado Pago (Tarjeta, Saldo)</label>
+                        <div class="mp-button-container">
+                            <button class="mp-button">Pagar con Mercado Pago</button>
+                        </div>
+                    </div>
+
+                    <div class="payment-method transfer-method">
+                        <input type="radio" id="transfer-payment" name="payment-method" value="transferencia">
+                        <label for="transfer-payment">🏦 Transferencia Bancaria (ITAU o PREX)</label>
+                        <div class="transfer-details" id="transfer-details-box">
+                            <p class="warning">**AVISO IMPORTANTE:** La orden se confirma ÚNICAMENTE al enviar el comprobante de transferencia por WhatsApp.</p>
+                            <h4>Datos de Transferencia:</h4>
+                            <ul>
+                                <li>**Banco ITAU:** Cta. Ahorros N° XXX-1234567 | Rut: 21.XXXXXXX</li>
+                                <li>**PREX:** N° de Tarjeta XXXX XXXX XXXX 4321 | C.I.: 5.XXXXXX</li>
+                                <li>**Beneficiario:** FB Informática S.R.L.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button class="confirm-order-btn" id="confirm-order-btn" disabled>
+                        Confirmar Pedido y Ver Instrucciones
+                    </button>
+                    <p class="small-print">Al confirmar, usted acepta nuestros términos y condiciones.</p>
+
+                </div>
+            </section>
+
+            <aside class="cart-summary checkout-summary">
+                <h3>Resumen de la Orden</h3>
+                <div class="summary-list" id="checkout-summary-list">
+                    </div>
+                
+                <div class="summary-details">
+                    <p>Subtotal: <span id="checkout-subtotal">$ 0</span></p>
+                    <p>Costo de Envío: <span id="checkout-shipping-cost">A calcular</span></p>
+                </div>
+                
+                <div class="cart-total-line">
+                    <strong>TOTAL FINAL:</strong>
+                    <strong id="checkout-total">$ 0</strong>
+                </div>
+                
+                <p class="summary-note">Los totales se calculan al llenar el formulario.</p>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 FB Informática. Todos los derechos reservados.</p>
+            <p>Desarrollado por FB Informática</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script> 
+    <script src="checkout-script.js"></script> </body>
+</html>

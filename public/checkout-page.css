@@ -1,0 +1,208 @@
+/* Estilos específicos para la página de Checkout */
+
+/* Layout de dos columnas (Formulario + Resumen) */
+.checkout-wrapper {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.checkout-form {
+    flex: 3; /* Más ancho para el formulario */
+    padding-right: 20px;
+}
+
+.checkout-summary {
+    flex: 1.5; /* Más estrecho para el resumen */
+    position: sticky;
+    top: 100px; /* Se queda fijo al hacer scroll */
+}
+
+/* Estilos del Formulario */
+.checkout-form h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 100%;
+}
+
+.form-group.half-width {
+    width: calc(50% - 10px);
+    margin-right: 20px;
+}
+
+.form-group.half-width:nth-child(even) {
+    margin-right: 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+/* Estilos de Opciones de Pago */
+.payment-options {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.payment-method {
+    border: 2px solid #ced4da;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s;
+}
+
+.payment-method:has(input:checked) {
+    border-color: var(--primary-color);
+    background-color: #f0f7ff; /* Fondo más claro para la opción seleccionada */
+}
+
+.payment-method label {
+    font-weight: 700;
+    cursor: pointer;
+    display: block;
+    margin-left: 25px;
+}
+
+.payment-method input[type="radio"] {
+    margin-right: -25px;
+    float: left;
+    margin-top: 5px;
+}
+
+/* Detalles de Transferencia */
+.transfer-details {
+    margin-top: 15px;
+    padding: 10px;
+    border-left: 3px solid #ffc107;
+    background-color: #fffbe6;
+    font-size: 0.9em;
+    display: none; /* Oculto por defecto, se muestra con JS */
+}
+
+.transfer-method:has(input:checked) .transfer-details {
+    display: block; /* Muestra los detalles de transferencia al seleccionar el radio button */
+}
+
+.transfer-details ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.warning {
+    color: #856404;
+    font-weight: 600;
+}
+
+/* Botones de Pago/Confirmación */
+.mp-button, .confirm-order-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.mp-button {
+    background-color: #009ee3; /* Color de Mercado Pago */
+    color: white;
+}
+.mp-button:hover {
+    opacity: 0.9;
+}
+
+.confirm-order-btn {
+    background-color: var(--dark-bg);
+    color: white;
+}
+.confirm-order-btn:hover:not(:disabled) {
+    background-color: var(--primary-color);
+}
+.confirm-order-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.small-print {
+    font-size: 0.8em;
+    text-align: center;
+    margin-top: 10px;
+    color: #6c757d;
+}
+
+/* Resumen de la Orden (Adaptación del carrito) */
+.checkout-summary .summary-list {
+    max-height: 250px;
+    overflow-y: auto; /* Scroll para muchos productos */
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+.checkout-summary .item-summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    padding: 5px 0;
+    border-bottom: 1px dotted #e0e0e0;
+}
+
+.checkout-summary .item-summary-line:last-child {
+    border-bottom: none;
+}
+
+.checkout-summary .item-name {
+    flex: 1;
+}
+
+/* Responsividad */
+@media (max-width: 992px) {
+    .checkout-wrapper {
+        flex-direction: column;
+    }
+
+    .checkout-form {
+        padding-right: 0;
+    }
+
+    .checkout-summary {
+        position: static;
+        margin-top: 30px;
+        order: -1; /* Mover el resumen al principio en móvil */
+    }
+}
+
+@media (max-width: 600px) {
+    .form-group.half-width {
+        width: 100%;
+        margin-right: 0;
+    }
+}

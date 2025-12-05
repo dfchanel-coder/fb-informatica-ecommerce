@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - FB Informática</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="admin.css"> </head>
+<body>
+
+    <header class="admin-header">
+        <h1>🛠️ Panel de Administración FB Informática</h1>
+        <nav>
+            <ul>
+                <li><a href="#productos">Gestión de Productos</a></li>
+                <li><a href="#ordenes">Gestión de Órdenes</a></li>
+                <li><a href="/">Volver a la Tienda</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main class="container admin-container">
+        
+        <section id="productos">
+            <h2>Gestión de Productos</h2>
+            
+            <form id="product-form" enctype="multipart/form-data" class="admin-form">
+                <h3>Añadir Nuevo Producto</h3>
+                
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" required></textarea>
+
+                <label for="precio">Precio ($):</label>
+                <input type="number" id="precio" name="precio" min="0" required>
+
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="usados-gpus">GPU Usada</option>
+                    <option value="usados-pcs">PC Usada</option>
+                    <option value="nuevos-gpus">GPU Nueva</option>
+                    <option value="nuevos-pcs">PC Nueva</option>
+                </select>
+
+                <label for="imagen">Imagen (Explorador de Archivos):</label>
+                <input type="file" id="imagen" name="imagen" accept="image/*" required>
+
+                <button type="submit">Guardar Producto</button>
+            </form>
+
+            <hr>
+            <h3>Listado de Productos (Tabla)</h3>
+            <table id="product-table" class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Categoría</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </section>
+
+        <section id="ordenes" class="order-management">
+            <h2>Gestión de Órdenes</h2>
+            <p>Aquí se listarán todas las órdenes de compra para su gestión.</p>
+
+            <table id="order-table" class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Orden ID</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#001</td>
+                        <td>Juan Pérez</td>
+                        <td>$ 455.000</td>
+                        <td>
+                            <select class="order-status-select">
+                                <option value="pendiente" selected>🔴 Pendiente</option>
+                                <option value="finalizada">🟢 Finalizada</option>
+                                <option value="cancelada">⚫ Cancelada</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="view-order-btn">Ver</button>
+                            <button class="delete-order-btn">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <script src="admin.js"></script> 
+</body>
+</html>

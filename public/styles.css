@@ -1,0 +1,298 @@
+/* --- 0. RESET Y TIPOGRAFÍA BASE --- */
+:root {
+    --primary-color: #007bff; /* Azul vibrante para acentos (moderno) */
+    --secondary-color: #f8f9fa; /* Gris muy claro para fondos (minimalista) */
+    --text-color: #333;
+    --dark-bg: #212529; /* Fondo oscuro para el footer */
+    --max-width: 1200px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: white;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- 1. ENCABEZADO (HEADER) --- */
+.main-header {
+    background-color: white;
+    border-bottom: 1px solid var(--secondary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+}
+
+/* Área del Logo */
+.logo-area {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.logo-text {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--dark-bg);
+}
+
+.site-name {
+    font-size: 1.1em;
+    font-weight: 300;
+    color: #6c757d;
+    margin-left: 10px;
+}
+
+/* Navegación */
+.main-nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+.main-nav a {
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 5px 0;
+    transition: color 0.3s;
+    position: relative;
+}
+
+.main-nav a:hover {
+    color: var(--primary-color);
+}
+
+/* Estilo de los Menús Desplegables (CORRECCIÓN APLICADA AQUÍ) */
+.dropdown {
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.dropdown-content {
+    /* Estado inicial: oculto y sin interacción */
+    visibility: hidden; 
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    pointer-events: none; /* Crucial para evitar que se quede "flotando" */
+    
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1050; 
+    padding: 10px 0;
+    border-radius: 4px;
+    top: 100%;
+    padding-top: 15px; /* Posiciona justo debajo del enlace principal con un pequeño margen */
+    left: 0;
+}
+
+.dropdown-content li {
+    padding: 8px 15px;
+    margin-top: -5px;
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+    display: block;
+    white-space: nowrap;
+}
+
+/* Muestra el menú al pasar el ratón */
+.dropdown:hover .dropdown-content {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto; /* Permite clickear los enlaces cuando está visible */
+}
+
+/* Buscador y Carrito */
+.utility-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-input {
+    padding: 8px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1em;
+    width: 200px;
+    transition: border-color 0.3s;
+}
+
+.search-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.cart-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.cart-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* --- 2. BANNER PRINCIPAL (HERO) --- */
+.hero-banner {
+    background-color: var(--secondary-color); 
+    padding: 80px 20px;
+    text-align: center;
+    border-bottom: 5px solid var(--primary-color); 
+    margin-bottom: 40px;
+}
+
+.banner-text h2 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    color: var(--dark-bg);
+}
+
+.banner-text p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.cta-button {
+    background-color: var(--dark-bg);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px; 
+    font-size: 1.1em;
+    font-weight: 600;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: var(--primary-color);
+}
+
+
+/* --- 3. CONTENIDO PRINCIPAL (MAIN) --- */
+.container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+.featured-products {
+    min-height: 200px;
+    text-align: center;
+    padding: 20px;
+    color: #999;
+}
+
+
+/* --- 4. PIE DE PÁGINA (FOOTER) --- */
+.main-footer {
+    background-color: var(--dark-bg);
+    color: var(--secondary-color);
+    padding: 30px 20px;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.footer-content p {
+    margin: 5px 0;
+}
+
+/* --- RESPONSIVIDAD BÁSICA (Para celulares) --- */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .logo-area {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .main-nav {
+        order: 3; 
+    }
+    
+    .main-nav ul {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .utility-icons {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .search-input {
+        width: 100%; 
+        max-width: 300px;
+    }
+
+    .dropdown-content {
+        position: static; 
+        box-shadow: none;
+        padding: 5px 0 5px 20px;
+        background-color: var(--secondary-color);
+    }
+
+    .hero-banner {
+        padding: 60px 20px;
+    }
+
+    .banner-text h2 {
+        font-size: 2em;
+    }
+}
