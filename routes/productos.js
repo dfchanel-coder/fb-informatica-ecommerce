@@ -2,10 +2,10 @@
 
 const express = require('express');
 const router = express.Router();
-const Producto = require('../models/Producto'); // Importamos el Modelo
+const Producto = require('../models/Producto'); 
 const path = require('path');
-const multer = require('multer'); // Para manejar la subida de archivos
-const fs = require('fs'); // <--- NECESARIO para crear el directorio /tmp
+const multer = require('multer'); 
+const fs = require('fs'); 
 
 // --- Configuración de Multer (Subida de Imagen - CORRECCIÓN PARA RENDER) ---
 const storage = multer.diskStorage({
@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
         // CORRECCIÓN: Usar el directorio temporal del sistema que tiene permisos de escritura.
         const uploadDir = '/tmp/uploads'; 
         
-        // Creamos el directorio si no existe (es una práctica segura)
+        // Creamos el directorio si no existe
         if (!fs.existsSync(uploadDir)) {
             fs.mkdirSync(uploadDir, { recursive: true });
         }
@@ -33,19 +33,24 @@ router.post('/', upload.single('imagen'), async (req, res) => {
         if (!req.file) {
             return res.status(400).json({ message: "Debe adjuntar un archivo de imagen." });
         }
-
-        // ADVERTENCIA: Como las imágenes en /tmp se borran, la URL de la imagen
-        // se guarda como un placeholder hasta que uses Cloudinary o S3.
-        const placeholderUrl = "placeholder-imagen-subida.jpg"; 
         
-        // 2. Crear un nuevo objeto Producto con los datos del formulario
+        // VALIDACIÓN DE DATOS CLAVE
+        const precioNumero = parseFloat(req.body.precio);
+        
+        if (isNaN(precioNumero) || precioNumero <= 0) {
+            return res.status(400).json({ message: "El precio debe ser un número válido y positivo (sin comas ni signos de moneda)." });
+        }
+        
+        // ADVERTENCIA: La imagen en /tmp se borra, por eso usamos un placeholder.
+        const placeholderUrl = "placeholder-imagen-subida.jpg"; 
+
+        // 2. Crear un nuevo objeto Producto
         const nuevoProducto = new Producto({
             nombre: req.body.nombre,
             descripcion: req.body.descripcion,
-            // Aseguramos que el precio sea un número
-            precio: parseFloat(req.body.precio), 
+            // Usamos el valor numérico validado:
+            precio: precioNumero, 
             categoria: req.body.categoria,
-            // Guardamos el placeholder, ya que la imagen física se perderá al reiniciar Render.
             imagenUrl: placeholderUrl 
         });
 
@@ -55,10 +60,11 @@ router.post('/', upload.single('imagen'), async (req, res) => {
         // 4. Respuesta exitosa
         res.status(201).json(productoGuardado);
     } catch (error) {
-        console.error("Error al crear el producto:", error);
-        // Devolvemos el error en un formato que el frontend pueda manejar
+        // Manejamos errores de Mongoose y validaciones.
+        console.error("Error detallado al crear el producto:", error);
+        
         res.status(500).json({ 
-            message: "Error de servidor (Verifique los campos requeridos).", 
+            message: "Error de validación: Verifique que todos los campos requeridos estén llenos.", 
             details: error.message 
         });
     }
