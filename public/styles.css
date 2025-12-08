@@ -193,3 +193,35 @@ body {
     .filters-bar { flex-direction: column; align-items: stretch; }
     .filter-left input, .filter-right input { width: 100% !important; }
 }
+/* styles.css - Al final del archivo */
+
+/* --- ESTILOS DEL NUEVO LOGO --- */
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.site-logo {
+    /* Ajusta esta altura según necesites. Entre 40px y 60px es lo ideal. */
+    height: 50px; 
+    width: auto;  /* Mantiene la proporción original de tu imagen */
+    object-fit: contain; /* Asegura que el logo no se deforme */
+    
+    /* Opcional: Si tu logo es negro y no se ve, invierte los colores temporalmente */
+    /* filter: invert(1); */ 
+
+    transition: transform 0.3s ease;
+}
+
+/* Pequeño efecto al pasar el mouse */
+.site-logo:hover {
+    transform: scale(1.05); 
+}
+
+/* Ajuste para pantallas pequeñas (celulares) */
+@media (max-width: 768px) {
+    .site-logo {
+        height: 40px; /* Un poco más pequeño en móviles */
+    }
+}

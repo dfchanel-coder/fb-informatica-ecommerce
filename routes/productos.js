@@ -1,248 +1,90 @@
-// ==========================================================
-// LÓGICA DEL PANEL DE ADMINISTRACIÓN (admin.js)
-// Conexión a la API y gestión de tablas.
-// ==========================================================
+const express = require('express');
+const router = express.Router();
+const multer = require('multer'); // Librería para subir imágenes
+const path = require('path');
+const fs = require('fs');
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar al cargar la página
-    cargarProductos();
-    cargarOrdenes();
-
-    // 1. Manejar el Formulario de Productos (Subida/Creación)
-    document.getElementById('product-form').addEventListener('submit', handleProductSubmit);
-
-    // 2. Manejar la Tabla de Órdenes (Actualización de Estado y Eliminación)
-    document.getElementById('order-table').addEventListener('change', handleOrderStatusChange);
-    document.getElementById('order-table').addEventListener('click', handleOrderActions);
+// 1. Configuración de Multer (Dónde se guardan las imágenes)
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        // Carpeta donde se guardarán las fotos
+        const dir = 'public/uploads/'; 
+        // Si la carpeta no existe, la crea
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir, { recursive: true });
+        }
+        cb(null, dir);
+    },
+    filename: function (req, file, cb) {
+        // Nombre único: fecha + nombre original
+        cb(null, Date.now() + '-' + file.originalname);
+    }
 });
 
-// ==========================================================
-// 1. LÓGICA DE PRODUCTOS
-// ==========================================================
+const upload = multer({ storage: storage });
 
-/**
- * Muestra el listado de productos en la tabla del administrador.
- */
-function renderizarProductos(productos) {
-    const tbody = document.getElementById('product-table').querySelector('tbody');
-    tbody.innerHTML = ''; // Limpia la tabla
+// IMPORTANTE: Si ya tienes tu modelo de Mongoose, descomenta esta línea:
+// const Producto = require('../models/Producto'); 
 
-    productos.forEach(p => {
-        const row = tbody.insertRow();
-        row.innerHTML = `
-            <td>${p._id.substring(18)}...</td>
-            <td>${p.nombre}</td>
-            <td>${formatearPrecio(p.precio)}</td>
-            <td>${p.categoria}</td>
-            <td>
-                <button class="delete-product-btn" data-id="${p._id}">Eliminar</button>
-            </td>
-        `;
-        // Asignamos el evento de eliminar al botón de la fila
-        row.querySelector('.delete-product-btn').addEventListener('click', handleDeleteProduct);
-    });
-}
+// ==========================================
+// RUTAS DE LA API (BACKEND)
+// ==========================================
 
-/**
- * Obtiene todos los productos del servidor y los renderiza.
- */
-async function cargarProductos() {
+// GET: Obtener todos los productos
+router.get('/', async (req, res) => {
     try {
-        const response = await fetch('/api/productos');
-        if (!response.ok) throw new Error('Error al cargar productos');
-        const productos = await response.json();
-        renderizarProductos(productos);
+        // SI TIENES BASE DE DATOS:
+        // const productos = await Producto.find();
+        // res.json(productos);
+
+        // MODO PRUEBA (Para que no falle mientras conectas la DB):
+        res.json([
+            { _id: 'temp123456789012345678', nombre: 'Producto Demo', precio: 1500, categoria: 'nuevos-gpus' }
+        ]);
     } catch (error) {
-        console.error('Carga de productos fallida:', error);
-        // Quitamos el alert en admin.js para evitar spam, solo se muestra en la consola.
+        res.status(500).json({ message: error.message });
     }
-}
+});
 
-/**
- * Maneja la subida de un nuevo producto (incluyendo la imagen).
- */
-async function handleProductSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    
-    // CORRECCIÓN CLAVE: Validar si la imagen está seleccionada ANTES de enviar.
-    const imageInput = document.getElementById('imagen');
-    if (imageInput.files.length === 0) {
-        alert('❌ Error: Debe seleccionar un archivo de imagen para el producto.');
-        return; // Detiene el envío
-    }
-
-    const formData = new FormData(form);
-
+// POST: Crear nuevo producto (Sube imagen y datos)
+router.post('/', upload.single('imagen'), async (req, res) => {
     try {
-        const response = await fetch('/api/productos', {
-            method: 'POST',
-            body: formData // Envía el objeto FormData (incluye texto e imagen)
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            // Esto captura el error 500 del backend, si Mongoose falla.
-            throw new Error(errorData.message || 'Error desconocido del servidor.');
-        }
-
-        alert('✅ Producto creado y imagen subida con éxito!');
-        form.reset(); // Limpiar formulario
-        cargarProductos(); // Recargar la lista de productos
-    } catch (error) {
-        // Línea 82 de tu código original (Error 500)
-        console.error('Subida fallida:', error); 
-        alert(`❌ Error: ${error.message}`);
-    }
-}
-
-/**
- * Elimina un producto de la base de datos.
- */
-async function handleDeleteProduct(e) {
-    const id = e.target.dataset.id;
-    if (!confirm(`¿Estás seguro de eliminar el producto con ID ${id}?`)) {
-        return;
-    }
-
-    try {
-        const response = await fetch(`/api/productos/${id}`, {
-            method: 'DELETE'
-        });
-
-        if (!response.ok) throw new Error('Error al eliminar producto.');
-
-        alert('🗑️ Producto eliminado correctamente.');
-        cargarProductos(); // Recargar la lista
-    } catch (error) {
-        console.error('Eliminación fallida:', error);
-        alert('❌ Error al eliminar el producto.');
-    }
-}
-
-
-// ==========================================================
-// 2. LÓGICA DE ÓRDENES
-// ==========================================================
-
-/**
- * Muestra el listado de órdenes en la tabla del administrador.
- */
-function renderizarOrdenes(ordenes) {
-    const tbody = document.getElementById('order-table').querySelector('tbody');
-    tbody.innerHTML = '';
-
-    ordenes.forEach(orden => {
-        const row = tbody.insertRow();
-        const estadoOpciones = ['pendiente', 'finalizada', 'cancelada'];
+        const { nombre, descripcion, precio, categoria } = req.body;
         
-        // Crear el selector de estado
-        const selectHTML = `
-            <select class="order-status-select" data-id="${orden._id}">
-                ${estadoOpciones.map(estado => 
-                    `<option value="${estado}" ${orden.estado === estado ? 'selected' : ''}>
-                        ${estado.toUpperCase()}
-                    </option>`
-                ).join('')}
-            </select>
-        `;
+        // Si se subió imagen, guardamos la ruta. Si no, string vacío.
+        const imagenUrl = req.file ? `/uploads/${req.file.filename}` : '';
 
-        row.innerHTML = `
-            <td>#${orden._id.substring(18)}...</td>
-            <td>${orden.nombreCliente} (${orden.ciudad})</td>
-            <td>${formatearPrecio(orden.total)}</td>
-            <td>${selectHTML}</td>
-            <td>
-                <button class="view-order-btn" data-id="${orden._id}">Ver</button>
-                <button class="delete-order-btn" data-id="${orden._id}">Eliminar</button>
-            </td>
-        `;
-    });
-}
+        // SI TIENES BASE DE DATOS:
+        // const nuevoProducto = new Producto({ 
+        //     nombre, 
+        //     descripcion, 
+        //     precio, 
+        //     categoria, 
+        //     imagen: imagenUrl 
+        // });
+        // const productoGuardado = await nuevoProducto.save();
+        // res.status(201).json(productoGuardado);
 
-/**
- * Obtiene todas las órdenes del servidor y las renderiza.
- */
-async function cargarOrdenes() {
-    try {
-        const response = await fetch('/api/ordenes');
-        if (!response.ok) throw new Error('Error al cargar órdenes');
-        const ordenes = await response.json();
-        renderizarOrdenes(ordenes);
+        // RESPUESTA DE PRUEBA:
+        console.log('✅ Producto Recibido:', nombre);
+        res.status(201).json({ message: 'Producto creado (Simulado)', producto: { nombre, imagenUrl } });
+
     } catch (error) {
-        console.error('Carga de órdenes fallida:', error);
+        console.error(error);
+        res.status(400).json({ message: 'Error al crear producto' });
     }
-}
+});
 
-/**
- * Maneja el cambio en el selector de estado de la orden.
- */
-async function handleOrderStatusChange(e) {
-    if (e.target.classList.contains('order-status-select')) {
-        const id = e.target.dataset.id;
-        const nuevoEstado = e.target.value;
-
-        try {
-            const response = await fetch(`/api/ordenes/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ estado: nuevoEstado })
-            });
-
-            if (!response.ok) throw new Error('Error al actualizar estado.');
-            
-            alert(`Estado de la orden #${id.substring(18)}... actualizado a ${nuevoEstado.toUpperCase()}.`);
-        } catch (error) {
-            console.error('Error de actualización:', error);
-            alert('❌ No se pudo actualizar el estado de la orden.');
-        }
+// DELETE: Eliminar producto
+router.delete('/:id', async (req, res) => {
+    try {
+        // SI TIENES BASE DE DATOS:
+        // await Producto.findByIdAndDelete(req.params.id);
+        
+        res.json({ message: 'Producto eliminado correctamente' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
-}
+});
 
-/**
- * Maneja el click en los botones de "Ver" o "Eliminar" orden.
- */
-async function handleOrderActions(e) {
-    const target = e.target;
-    const id = target.dataset.id;
-    
-    if (target.classList.contains('delete-order-btn')) {
-        if (!confirm(`¿Estás seguro de ELIMINAR la orden #${id.substring(18)}...?`)) {
-            return;
-        }
-
-        try {
-            const response = await fetch(`/api/ordenes/${id}`, {
-                method: 'DELETE'
-            });
-
-            if (!response.ok) throw new Error('Error al eliminar orden.');
-
-            alert('🗑️ Orden eliminada correctamente.');
-            cargarOrdenes(); // Recargar la lista
-        } catch (error) {
-            console.error('Eliminación fallida:', error);
-            alert('❌ Error al eliminar la orden.');
-        }
-    } 
-    
-    if (target.classList.contains('view-order-btn')) {
-        alert(`Ver detalles de la Orden #${id.substring(18)}...\nFuncionalidad pendiente: Mostrar cliente, ítems, dirección completa.`);
-    }
-}
-
-
-// ==========================================================
-// 3. UTILIDADES
-// ==========================================================
-
-/**
- * Formatea un número a formato de moneda con separador de miles.
- */
-function formatearPrecio(precio) {
-    if (typeof precio !== 'number') {
-        precio = parseFloat(precio) || 0;
-    }
-    // Formatea el número a formato de moneda (ej: $ 450.000)
-    return `$ ${precio.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
-}
+module.exports = router;
