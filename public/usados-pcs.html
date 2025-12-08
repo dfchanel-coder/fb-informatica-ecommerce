@@ -13,22 +13,15 @@
         <div class="header-content">
             <div class="logo-area">
                 <span class="logo-text">💻 FB Informática</span>
-                <h1 class="site-name">Tienda Online</h1>
             </div>
             <nav class="main-nav">
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li class="dropdown">
-                        <a href="#">Usados ▼</a>
+                        <a href="#">Hardware ▼</a>
                         <ul class="dropdown-content">
                             <li><a href="usados-gpus.html">GPU's Usadas</a></li>
-                            <li><a href="usados-pcs.html">PC's Usadas</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#">Nuevos ▼</a>
-                        <ul class="dropdown-content">
+                            <li><a href="usados-pcs.html">PC's Usadas</a></li>
                             <li><a href="nuevos-gpus.html">GPU's Nuevas</a></li>
                             <li><a href="nuevos-pcs.html">PC's Nuevas</a></li>
                         </ul>
@@ -36,54 +29,62 @@
                 </ul>
             </nav>
             <div class="utility-icons">
-                <input type="search" placeholder="Buscar productos..." class="search-input">
-                <button class="cart-btn" aria-label="Carrito de Compras">
-                    🛒 Carrito (0)
-                </button>
+                <button class="cart-btn">🛒 (0)</button>
             </div>
         </div>
     </header>
     
-    <main class="container product-page-layout">
-        <h2 class="page-title">PC's Usadas 💻</h2>
+    <main class="product-page-layout">
+        <h2 class="page-title">PC's Usadas y Reacondicionadas ♻️</h2>
 
-        <div class="content-wrapper">
-            
-            <aside class="sidebar">
-                <h3>Filtros</h3>
-                <div class="filter-group">
-                    <h4>Buscador Rápido</h4>
-                    <input type="text" id="quick-search-pc" placeholder="Buscar por modelo de PC..." class="search-filter-input">
-                </div>
-                <div class="filter-group">
-                    <h4>Filtrar por Precio</h4>
-                    <div class="price-inputs">
-                        <input type="number" id="min-price-pc" placeholder="Mínimo" min="0">
-                        <input type="number" id="max-price-pc" placeholder="Máximo" min="0">
-                    </div>
-                    <button class="apply-filters-btn">Aplicar Filtros</button>
-                </div>
-                
-                <div class="filter-group">
-                    <h4>Filtros Adicionales</h4>
-                    <p>Filtros por CPU, RAM o Almacenamiento.</p>
-                </div>
-            </aside>
-
-            <section class="product-list">
-                <p>Cargando productos...</p>
-            </section>
+        <div class="filters-bar">
+            <div class="filter-left">
+                <input type="text" id="quick-search-pc" placeholder="🔍 Buscar PC..." class="minimal-input" style="width: 280px;">
+            </div>
+            <div class="filter-right">
+                <span>Presupuesto Max:</span>
+                <input type="number" id="max-price-pc" placeholder="$ Max" class="minimal-input" style="width: 100px;">
+                <button class="minimal-select">Filtrar</button>
+            </div>
         </div>
+
+        <section class="product-list" id="product-grid">
+            <p style="text-align:center; width:100%; color:#555;">Cargando equipos...</p>
+        </section>
     </main>
 
     <footer class="main-footer">
-        <div class="footer-content">
-            <p>&copy; 2025 FB Informática. Todos los derechos reservados.</p>
-            <p>Desarrollado por FB Informática</p>
+        <div class="footer-content" style="text-align: center; padding: 20px; color: #555;">
+            <p>&copy; 2025 FB Informática.</p>
         </div>
     </footer>
 
     <script src="script.js"></script>
     <script src="product-render.js"></script> 
+    
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        function observarTarjetas() {
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                card.classList.add('reveal');
+                observer.observe(card);
+            });
+        }
+
+        const targetNode = document.getElementById('product-grid');
+        const config = { childList: true };
+        const observerDom = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList') observarTarjetas();
+            });
+        });
+        observerDom.observe(targetNode, config);
+    </script>
 </body>
 </html>

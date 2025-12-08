@@ -5,69 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FB Informática - Tienda Online</title>
     <link rel="stylesheet" href="styles.css"> 
-</head>
+    <link rel="stylesheet" href="product-list.css"> </head>
 <body>
 
     <header class="main-header">
         <div class="header-content">
             <div class="logo-area">
                 <span class="logo-text">💻 FB Informática</span>
-                <h1 class="site-name">Tienda Online</h1>
             </div>
-
             <nav class="main-nav">
                 <ul>
-                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html" style="color: #fff;">Inicio</a></li>
                     <li class="dropdown">
-                        <a href="#">Usados ▼</a>
+                        <a href="#">Hardware ▼</a>
                         <ul class="dropdown-content">
                             <li><a href="usados-gpus.html">GPU's Usadas</a></li>
                             <li><a href="usados-pcs.html">PC's Usadas</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#">Nuevos ▼</a>
-                        <ul class="dropdown-content">
                             <li><a href="nuevos-gpus.html">GPU's Nuevas</a></li>
                             <li><a href="nuevos-pcs.html">PC's Nuevas</a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
-
             <div class="utility-icons">
-                <input type="search" placeholder="Buscar productos..." class="search-input">
-                <button class="cart-btn" aria-label="Carrito de Compras">
-                    🛒 Carrito (0)
-                </button>
+                <button class="cart-btn">🛒 (0)</button>
             </div>
         </div>
     </header>
 
     <section class="hero-banner">
+        <div class="hero-overlay"></div>
         <div class="banner-text">
-            <h2>🔥 Ofertas Destacadas de la Semana 🔥</h2>
-            <p>Las mejores GPU's y PC's al mejor precio. ¡Encontrá tu upgrade!</p>
-            <a href="#productos" class="cta-button">Ver Productos</a>
+            <h2 class="hero-title">NEXT LEVEL <span class="gradient-text">GAMING</span></h2>
+            <p class="hero-subtitle">Hardware de alto rendimiento para quienes no aceptan lag.</p>
+            <div class="hero-buttons">
+                <a href="nuevos-gpus.html" class="cta-button primary">Ver GPU's</a>
+                <a href="nuevos-pcs.html" class="cta-button secondary">Ver PC's Armadas</a>
+            </div>
         </div>
     </section>
 
-    <main class="container">
-        <h2>Productos Destacados</h2>
-        <div class="featured-products">
-            <p>Esta es la sección donde mostraremos una selección de productos.</p>
-            <p>Continuaremos con los estilos CSS para que esto se vea moderno y minimalista.</p>
+    <main class="product-page-layout">
+        <h2 class="page-title">Destacados de la Semana 🔥</h2>
+        
+        <div class="product-list" id="featured-products">
+            <p style="text-align: center; color: #555; width: 100%;">Cargando ofertas...</p>
         </div>
     </main>
 
     <footer class="main-footer">
-        <div class="footer-content">
-            <p>&copy; 2025 FB Informática. Todos los derechos reservados.</p>
-            <p>Desarrollado por FB Informática</p>
-            </div>
+        <div class="footer-content" style="text-align: center; padding: 20px; color: #555;">
+            <p>&copy; 2025 FB Informática.</p>
+        </div>
     </footer>
-</footer>
 
     <script src="script.js"></script> 
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        
+        // Simular carga de destacados o esperar al script principal
+        document.addEventListener('DOMContentLoaded', () => {
+           // Aquí iría tu lógica para cargar destacados
+        });
+    </script>
 </body>
 </html>
